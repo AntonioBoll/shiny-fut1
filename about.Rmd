@@ -61,6 +61,7 @@ fifa$RB <- NULL
 fifa$Release.Clause <- NULL
 fifa$Weight <- NULL
 fifa$Height <- NULL
+fifa$Preferred.Foot <- NULL
 tabela <- fifa
 
 head(fifa)
@@ -79,22 +80,35 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput("co1", "Reac1", colnames(fifa)),
       selectInput("co2", "Reac2", colnames(fifa)),
-      checkboxInput("sidebar","Create Side Bar")
+      checkboxInput("sidebar","si")
   ),
     mainPanel(
-      plotOutput("bar")
+      plotOutput("hist"),
+      plotOutput("boxplot")
     )
   )
 )
 
-server <- function(input,output){
-
-  output$bar <- renderPlot({
-    barplot(fifa)
-     
+server <- function(input,output,session) {
+  
+  data1 <- reactive({
+    input$co1
   })
+  data2 <- reactive({
+    input$co2
+  })
+  
+   output$boxplot <- renderPlot({
+    boxplot(get(data2()) ~ get(data1()) , data=fifa)
+  })
+   output$Hist <- renderPlot({
+    req(data1())
+    hist(mtcars[[data1()]])
+  }) 
 }
-shinyApp(ui=ui, server=server)
+
+
+shinyApp(ui, server)
 
 
 ```
