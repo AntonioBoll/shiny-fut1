@@ -83,7 +83,6 @@ ui <- fluidPage(
       checkboxInput("sidebar","si")
   ),
     mainPanel(
-      plotOutput("hist"),
       plotOutput("boxplot")
     )
   )
@@ -101,10 +100,7 @@ server <- function(input,output,session) {
    output$boxplot <- renderPlot({
     boxplot(get(data2()) ~ get(data1()) , data=fifa)
   })
-   output$Hist <- renderPlot({
-    req(data1())
-    hist(mtcars[[data1()]])
-  }) 
+
 }
 
 
