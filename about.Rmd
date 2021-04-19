@@ -1,27 +1,100 @@
 ---
-title: "about"
+title: "Projeto"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+#Códigos
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r c1dasmdlanlkmas}
+fifa <- read.csv(file="~/Desktop/data.csv",head=TRUE)
+fifa$X <- NULL
+fifa$ID <- NULL
+fifa$Name <- NULL
+fifa$Photo <- NULL
+fifa$Flag <- NULL
+fifa$Nationality <- NULL
+fifa$Club <- NULL
+fifa$Flag <- NULL
+fifa$Club.Logo <- NULL
+fifa$Value <- NULL
+fifa$Wage <- NULL
+fifa$Special <- NULL
+fifa$International.Reputation <- NULL
+fifa$Flag <- NULL
+fifa$Work.Rate <- NULL
+fifa$Body.Type <- NULL
+fifa$Real.Face <- NULL
+fifa$Position <- NULL
+fifa$Jersey.Number <- NULL
+fifa$Joined <- NULL
+fifa$Loaned.From <- NULL
+fifa$Contract.Valid.Until <- NULL
+fifa$LS <- NULL
+fifa$ST <- NULL
+fifa$RS <- NULL
+fifa$LW <- NULL
+fifa$LF <- NULL
+fifa$CF <- NULL
+fifa$RF <- NULL
+fifa$RW <- NULL
+fifa$LAM <- NULL
+fifa$CAM <- NULL
+fifa$RAM <- NULL
+fifa$LM <- NULL
+fifa$LCM <- NULL
+fifa$CM <- NULL
+fifa$RCM <- NULL
+fifa$RM <- NULL
+fifa$LWB <- NULL
+fifa$LDM <- NULL
+fifa$CDM <- NULL
+fifa$RDM <- NULL
+fifa$RWB <- NULL
+fifa$LB <- NULL
+fifa$LCB <- NULL
+fifa$CB <- NULL
+fifa$RCB <- NULL
+fifa$RB <- NULL
+fifa$Release.Clause <- NULL
+fifa$Weight <- NULL
+fifa$Height <- NULL
+tabela <- fifa
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+head(fifa)
 ```
 
-## Including Plots
+## Plots
 
-You can also embed plots, for example:
+Plots das estatísticas
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r asiojdasd}
+library(shiny)
+library(ggplot2)
+ui <- fluidPage(
+  titlePanel("Gráfico de Variáveis no Fifa"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("co1", "Reac1", colnames(fifa)),
+      selectInput("co2", "Reac2", colnames(fifa)),
+      checkboxInput("sidebar","Create Side Bar")
+  ),
+    mainPanel(
+      plotOutput("bar")
+    )
+  )
+)
+
+server <- function(input,output){
+
+  output$bar <- renderPlot({
+    barplot(fifa)
+     
+  })
+}
+shinyApp(ui=ui, server=server)
+
+
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
